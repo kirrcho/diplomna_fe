@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from "./auth/login";
+import Register from "./auth/register";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Routes, Route, redirect } from "react-router-dom";
+import Navbar from "./navbar";
+import React, { useState } from "react";
+import Homepage from "./homepage";
 
-function App() {
+const App = () => {
+  const [isGoogleAuthLoading, setIsGoogleAuthLoading] = useState(true);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GoogleOAuthProvider
+      clientId={process.env.REACT_APP_client_id}
+      onScriptLoadSuccess={() => {
+        setIsGoogleAuthLoading(false);
+      }}
+    >
+      <Navbar />
+      <Routes>
+        <Route path="/" exact={true} element={<Homepage />} />
+        <Route
+          path="/login"
+          exact={true}
+          element={<Login isGoogleAuthLoading={isGoogleAuthLoading} />}
+        />
+        <Route
+          path="/register"
+          exact={true}
+          element={<Register isGoogleAuthLoading={isGoogleAuthLoading} />}
+        />
+      </Routes>
+    </GoogleOAuthProvider>
   );
-}
+};
 
 export default App;

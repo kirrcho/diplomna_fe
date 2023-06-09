@@ -1,0 +1,23 @@
+#form {
+    max-width: 20rem;
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+#loginModal {
+    background-color: #161b22;
+    max-width: 30rem;
+    padding: 2rem 0rem;
+    margin-top: 2rem;
+}
+
+#loginModal a {
+    text-decoration: none;
+    color: currentcolor;
+}
+
+#form div {
+    background-color: #000000;
+    color: white;
+}

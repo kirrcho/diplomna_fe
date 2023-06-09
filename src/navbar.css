@@ -1,0 +1,44 @@
+#navbar {
+    text-align: initial;
+    display: flex;
+    background-color: #161b22;
+    align-items: center;
+}
+
+#navbar .route {
+    text-decoration: none;
+    color: currentcolor;
+    margin-left: 0.5rem;
+    padding: 0rem 1rem;
+}
+
+#navbar input {
+    background-color: #0c0c0c;
+    border: none;
+    min-height: 1.2rem;
+    color: white;
+    margin-left: 0.5rem;
+}
+
+#navbar .right {
+    margin-left: auto;
+}
+
+#navbar label {
+    display: flex;
+}
+
+#navbar svg {
+    color: white;
+    display: inline-block;
+    position: relative;
+    height: 18px;
+    width: 18px;
+    right: 22.7px;
+    padding: 2px;
+}
+
+#logo {
+    padding: 1rem;
+    cursor: pointer;
+}
