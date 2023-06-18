@@ -3,6 +3,7 @@ import "./navbar.css";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const isSignedIn = localStorage.getItem('token') != null;
   const [searchValue, setSearchValue] = React.useState("");
 
   const handleSubmit = (e) => {
@@ -16,9 +17,12 @@ function Navbar() {
       <Link to="/">
         <img id="logo" src="logo.png" width="30px" />
       </Link>
-      <Link to="/login" className="route">
+      {!isSignedIn && <Link to="/login" className="route">
         <p>Login</p>
-      </Link>
+      </Link>}
+      {isSignedIn && <Link to="/rooms" className="route">
+        <p>Rooms</p>
+      </Link>}
       <form onSubmit={handleSubmit} className="right">
         <label>
           <input

@@ -1,0 +1,16 @@
+ul {
+    display: block;
+    list-style-type: none;
+}
+
+li {
+    border: 2px solid dimgrey;
+    width: 30%;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    margin-left: 1%;
+    margin-right: 1%;
+    color:white;
+}

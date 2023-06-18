@@ -1,0 +1,62 @@
+th {
+    border: 2px solid dimgrey;
+    min-width: 160px;
+}
+
+table {
+    text-align: center;
+}
+
+tr {
+  height: 40px;
+}
+
+#confirm-button {
+  background-color: dimgrey;
+  color: white;
+  font-size: 20px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#add-presence-button {
+  margin: 20px 35px 5px 5px;
+  font-size: 18px;
+  height: 25px;
+  width: 150px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: green;
+  float: right;
+}
+
+div > .react-datepicker__input-container {
+  display: inline-block;
+  text-align-last: left;
+  margin-left: 20px;
+  margin-top: 10px;
+  width: auto;
+}
+
+form > div > .react-datepicker__input-container {
+  margin-top: 0px;
+  width: 100%;
+}
+
+form > .react-datepicker-wrapper {
+  width: auto;
+}
+
+div > .react-datepicker-wrapper {
+  width: auto;
+}
+
+#datePickerParagraph {
+  display: inline-block;
+}
+
+.hide {
+  display: none;
+}

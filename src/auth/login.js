@@ -1,17 +1,26 @@
 import * as React from "react";
 import "./login.css";
-import { useGoogleLogin } from "@react-oauth/google";
-import { Link } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { Link, useNavigate } from "react-router-dom";
 import Spinner from "../common/spinner";
-import GoogleButton from "react-google-button";
+import axios from "axios";
 
 function Login(props) {
-  const login = useGoogleLogin(() => {});
+  const navigate = useNavigate();
 
   return !props.isGoogleAuthLoading ? (
     <div id="loginModal">
       <h2>Login</h2>
-      <GoogleButton type="dark" onClick={login} />
+      <GoogleLogin onSuccess={async (response) => {
+        const result = await axios.post(`${process.env.be_url}/auth/login`, { token: response.credential }, {
+          'Content-Type': 'application/json'
+        });
+        if (result.data.isSuccessful) {
+          localStorage.setItem('token', result.data.value);
+          props.callback();
+          navigate("/");
+        }
+      }}/>
       <p>Don't have an account ?</p>
       <Link to="/register">SIGN UP</Link>
     </div>
