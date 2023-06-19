@@ -1,0 +1,34 @@
+.styleButton {
+    background-color: dimgrey;
+    color: white;
+    font-size: 20px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0px;
+}
+
+.cd-popup {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+.cd-popup-container {
+    transform: translateY(-40px);
+    transition-property: transform;
+    transition-duration: 0.3s;
+}
+
+.cd-popup-container {
+    transform: translateY(0);
+}
+
+.cd-popup-container button {
+    border: 2px solid white;
+    margin: 10px;
+}
+
+.danger {
+    background-color: darkred;
+}

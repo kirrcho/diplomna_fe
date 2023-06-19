@@ -1,6 +1,6 @@
 import * as React from "react";
 import "./student.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -13,19 +13,27 @@ const Student = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
   const [attendances, setAttendances] = useState([]);
-  const [facultyNumber, setFacultyNumber] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
       setIsLoading(true);
-      axios.get(`${process.env.be_url}/attendances/${id}?day=${startDate.toLocaleDateString("en-US")}`, {
+      axios.get(`${process.env.be_url}/users/${id}?day=${startDate.toLocaleDateString("en-US")}`, {
           headers: {
               'Content-type': 'application/json',
               'Authorization': "Bearer " + token
           }
       })
       .then(p => {
-          setFacultyNumber(p.data.value.facultyNumber);
+          setUserDetails({
+            firstName: p.data.value.firstName,
+            lastName: p.data.value.lastName,
+            facultyNumber: p.data.value.facultyNumber,
+            groupId: p.data.value.groupId,
+            year: p.data.value.year,
+            groupNumber: p.data.value.groupNumber
+          });
           setAttendances(p.data.value.attendances);
           setIsLoading(false);
       })
@@ -35,21 +43,24 @@ const Student = () => {
           navigate("/login");
         }
       });
-  }, [startDate]);
+  }, [startDate, location]);
   
   return <>
   {isLoading && <Spinner />}
   {!isLoading && <><p id="datePickerParagraph">Select a date: </p>
   <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-  <h2>Faculty Number {facultyNumber}</h2>
+  <h2>{userDetails.firstName + ' ' + userDetails.lastName} - {userDetails.facultyNumber}</h2>
+  <h4><Link to={`/groups/details/${userDetails.groupId}?year=${userDetails.year}`}>Group: {userDetails.groupNumber}</Link></h4>
   <table>
     <thead>
+      <tr>
         <th>RoomNumber</th>
         <th>PresenceConfirmed</th>
         <th>PresenceConfirmedTime</th>
         <th>TimeScanned</th>
         <th>ConfirmedBy</th>
         <th>Confirm</th>
+      </tr>
     </thead>
     <tbody>
         { attendances.map(p => 

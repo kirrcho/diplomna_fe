@@ -69,6 +69,7 @@ const RoomDetails = () => {
     }, [startDate]);
 
     const updatePresence = (e, attendanceId) => {
+        setIsLoading(true);
         e.preventDefault();
         e.stopPropagation();
         axios.post(`${process.env.be_url}/confirmPresence`, attendanceId, {
@@ -76,6 +77,14 @@ const RoomDetails = () => {
                 'Content-type': 'application/json',
                 'Authorization': "Bearer " + token
             }
+        })
+        .then(p => {
+          if(!p.data.isSuccessful) {
+            alert(p.data.error);
+          } else {
+            setStartDate(new Date());
+          }
+          setIsLoading(false);
         })
     }
 
@@ -102,6 +111,7 @@ const RoomDetails = () => {
   <table>
     <thead>
       <tr>
+        <th>Student</th>
         <th>FacultyNumber</th>
         <th>PresenceConfirmed</th>
         <th>PresenceConfirmedTime</th>
@@ -113,7 +123,8 @@ const RoomDetails = () => {
     <tbody>
         { attendances.map(p => 
             <tr key={p.attendanceId}>
-                <td><Link to={`/attendances/${p.userId}`}>{p.facultyNumber}</Link></td>
+                <td><Link to={`/users/${p.userId}`}>{p.fullName}</Link></td>
+                <td>{p.facultyNumber}</td>
                 <td>{p.presenceConfirmed ? 'Yes' : 'No'}</td>
                 <td>{p.presenceConfirmedTime}</td>
                 <td>{p.timeScanned}</td>
