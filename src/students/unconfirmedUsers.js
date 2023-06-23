@@ -36,7 +36,8 @@ const UnconfirmedUsers = () => {
       });
   }, []);
 
-  const confirmAccount = () => {
+  const confirmAccount = (e) => {
+    e.preventDefault();
     setIsLoading(true);
     axios.post(`${process.env.be_url}/users/confirm`, id , {
         headers: {
@@ -55,7 +56,8 @@ const UnconfirmedUsers = () => {
     });
   }
 
-  const removeAccount = () => {
+  const removeAccount = (e) => {
+    e.preventDefault();
     setIsLoading(true);
     axios.post(`${process.env.be_url}/users/remove`, id , {
         headers: {
@@ -81,7 +83,7 @@ const UnconfirmedUsers = () => {
         <div class="cd-popup" role="alert">
           <div class="cd-popup-container">
               <p>Are you sure you want to add this user?</p>
-              <button onClick={() => {confirmAccount()}} className="styleButton">Yes</button>
+              <button onClick={(e) => {confirmAccount(e)}} className="styleButton">Yes</button>
               <button className="styleButton" onClick={() => {setShowConfirmAlert(false)}}>No</button>
           </div>
         </div>
@@ -92,7 +94,7 @@ const UnconfirmedUsers = () => {
         <div class="cd-popup" role="alert">
           <div class="cd-popup-container">
               <p>This action will remove the user completely. Proceed ?</p>
-              <button onClick={() => {removeAccount()}} className="styleButton">Yes</button>
+              <button onClick={(e) => {removeAccount(e)}} className="styleButton">Yes</button>
               <button className="styleButton" onClick={() => {setShowRemoveAlert(false)}}>No</button>
           </div>
         </div>
